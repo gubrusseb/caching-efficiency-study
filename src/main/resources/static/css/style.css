@@ -1,0 +1,293 @@
+/* Общие настройки */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #fafafa;
+}
+
+/* Стили для шапки (фиксированная при прокрутке) */
+.navbar {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.navbar-brand:hover {
+    color: #000;
+}
+
+.nav-link {
+    color: #666;
+    font-weight: 400;
+    margin: 0 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #000;
+}
+
+/* Общие стили для форм авторизации и регистрации */
+.auth-card {
+    border: 1px solid #eaeaea;
+    border-radius: 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+    background: white;
+    max-width: 450px;
+    margin: 2rem auto;
+}
+
+.auth-card .card-body {
+    padding: 2.5rem;
+}
+
+/* Заголовок */
+.auth-card h2 {
+    font-weight: 400;
+    font-size: 1.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+/* Поля ввода */
+.auth-card .form-control {
+    border-radius: 0;
+    border: 1px solid #eaeaea;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #fff;
+}
+
+.auth-card .form-control:focus {
+    border-color: #333;
+    box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.1);
+    outline: none;
+}
+
+.auth-card .form-label {
+    font-weight: 400;
+    color: #555;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.auth-card .form-label span {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* Вспомогательный текст */
+.auth-card .form-text {
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+/* Чекбокс согласия */
+.auth-card .form-check-input {
+    border-radius: 0;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-top: 0.2rem;
+}
+
+.auth-card .form-check-input:checked {
+    background-color: #333;
+    border-color: #333;
+}
+
+.auth-card .form-check-input:focus {
+    border-color: #333;
+    box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.1);
+}
+
+.auth-card .form-check-label {
+    color: #555;
+    font-size: 0.9rem;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.auth-card .form-check-label a {
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.auth-card .form-check-label a:hover {
+    color: #000;
+    text-decoration: underline !important;
+}
+
+/* Кнопка отправки формы */
+.auth-card .btn-auth {
+    border-radius: 0;
+    padding: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+    width: 100%;
+}
+
+.auth-card .btn-auth:hover {
+    background-color: #000;
+    border-color: #000;
+}
+
+/* Ссылки под формой */
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.auth-footer p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-footer a {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: #000;
+    text-decoration: underline !important;
+}
+
+/* Разделитель (опционально) */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #999;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.auth-divider span {
+    padding: 0 10px;
+    font-size: 0.9rem;
+}
+
+/* Стили для поля телефона (специфично для регистрации) */
+.auth-card input[type="tel"] {
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Валидация полей */
+.auth-card .form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: none;
+}
+
+.auth-card .form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
+}
+
+.auth-card .form-control.is-valid {
+    border-color: #28a745;
+}
+
+.auth-card .form-control.is-valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .auth-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .auth-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-divider span {
+        font-size: 0.8rem;
+    }
+
+    .auth-footer {
+        font-size: 0.9rem;
+    }
+
+    .auth-card {
+        margin: 1rem auto;
+        max-width: 100%;
+    }
+}
+
+/* О нас */
+
+.diploma-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 40px;
+    margin: 30px 0;
+}
+.tech-badge {
+    background: rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 8px 20px;
+    margin: 5px;
+    display: inline-block;
+    font-weight: 500;
+}
+.info-card {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.info-card:hover {
+    transform: translateY(-5px);
+}
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+}
+.feature-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.feature-list li:last-child {
+    border-bottom: none;
+}
+.feature-list li:before {
+    content: "✓";
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 10px;
+}
+

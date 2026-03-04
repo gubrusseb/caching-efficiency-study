@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-магазин</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключаем собственные стили -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<!-- Шапка сайта -->
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">ONLINE-SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Каталог</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">О нас</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/login" class="btn btn-outline-dark me-2">Войти</a>
+                    <a href="/cart" class="btn btn-dark">Корзина <span class="badge bg-secondary">3</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Основной контент -->
+<main class="container my-5">
+    <!-- Категория 1: Популярные товары -->
+    <section class="mb-5">
+        <h2 class="mb-4">Популярные товары</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Смартфон X10</h5>
+                        <p class="card-text">6.5" дисплей, 128 ГБ памяти, тройная камера.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">24 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Ноутбук Pro</h5>
+                        <p class="card-text">15.6" IPS, Intel i5, 16 ГБ RAM, SSD 512 ГБ.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">79 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Наушники Air</h5>
+                        <p class="card-text">Беспроводные, активное шумоподавление.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">12 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категория 2: Новинки -->
+    <section class="mb-5">
+        <h2 class="mb-4">Новинки</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Планшет Tab S8</h5>
+                        <p class="card-text">11" 120 Гц, 8 ГБ RAM, стилус в комплекте.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">45 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Умные часы Watch 5</h5>
+                        <p class="card-text">GPS, пульсометр, водозащита 5 АТМ.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">18 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Клавиатура Mini</h5>
+                        <p class="card-text">Механическая, RGB-подсветка, беспроводная.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">7 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категория 3: Аксессуары -->
+    <section class="mb-5">
+        <h2 class="mb-4">Аксессуары</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Чехол для смартфона</h5>
+                        <p class="card-text">Силиконовый, защита от ударов.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">1 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Зарядное устройство</h5>
+                        <p class="card-text">Быстрая зарядка 65 Вт, 2 порта.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">2 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Внешний аккумулятор</h5>
+                        <p class="card-text">20000 mAh, быстрая зарядка.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">3 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категория 4: Техника для дома -->
+    <section class="mb-5">
+        <h2 class="mb-4">Техника для дома</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Умная колонка</h5>
+                        <p class="card-text">Голосовой помощник, Bluetooth 5.0.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">4 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Робот-пылесос</h5>
+                        <p class="card-text">Автоматическая уборка, управление с телефона.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">18 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Электрочайник</h5>
+                        <p class="card-text">Стеклянный, подсветка, 1.7 л.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">2 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категория 5: Игры и развлечения -->
+    <section class="mb-5">
+        <h2 class="mb-4">Игры и развлечения</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Геймпад Pro</h5>
+                        <p class="card-text">Беспроводной, виброотдача, аккумулятор.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">4 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Игровая мышь</h5>
+                        <p class="card-text">16000 DPI, 6 кнопок, RGB.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">3 290 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Коврик для мыши</h5>
+                        <p class="card-text">Игровой, большой, с подсветкой.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">1 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категория 6: Фото и видео -->
+    <section class="mb-5">
+        <h2 class="mb-4">Фото и видео</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Экшн-камера</h5>
+                        <p class="card-text">4K, водонепроницаемая, стабилизация.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">14 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Штатив</h5>
+                        <p class="card-text">Алюминиевый, высота 150 см.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">2 490 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Товар">
+                    <div class="card-body">
+                        <h5 class="card-title">Карта памяти</h5>
+                        <p class="card-text">128 ГБ, Class 10, UHS-I.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">1 990 ₽</span>
+                            <a href="#" class="btn btn-sm btn-outline-dark">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Контактная информация -->
+<div class="bg-secondary bg-opacity-10 w-100 py-5" style="margin-top: 30px;">
+    <div class="container">
+        <div class="text-center">
+            <div class="d-flex justify-content-center gap-4 mb-4 flex-wrap">
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #4CAF50; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-user-graduate fa-2x text-success"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Выполнил</small>
+                        <h6 class="mb-0 fw-bold">Губаев Руслан<br>Рузилевич</h6>
+                        <span class="badge bg-success bg-opacity-10 text-success mt-1">Группа 4241</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #2196F3; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-primary"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Научный руководитель</small>
+                        <h6 class="mb-0 fw-bold">Аксенов Алексей Владимирович</h6>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mt-1">Старший преподаватель</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center mb-4 gap-5">
+                <a href="https://guap.ru" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/s_guap-desc.svg" alt="Логотип ГУАП" style="height: 200px; width: auto;" class="img-fluid hover-effect">
+                </a>
+                <a href="https://new.guap.ru/i04" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/deps/i04.svg" alt="Логотип института" style="height: 100px; width: auto;" class="img-fluid hover-effect">
+                </a>
+            </div>
+
+            <p class="text-muted small mb-0">
+                © 2026 | Все права защищены | Данный сайт используется исключительно в исследовательских целях
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (для работы навбара) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

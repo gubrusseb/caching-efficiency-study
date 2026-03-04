@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина | Интернет-магазин</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Подключаем собственные стили -->
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Стили для корзины */
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .cart-header h2 {
+            margin: 0;
+            font-weight: 400;
+            color: #333;
+        }
+
+        .cart-header span {
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid #eaeaea;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background-color: #f5f5f5;
+            border: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+        }
+
+        .cart-item-image i {
+            font-size: 2.5rem;
+            color: #ccc;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 2;
+        }
+
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .cart-item-title a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .cart-item-title a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .cart-item-category {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            font-weight: 500;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-old-price {
+            color: #999;
+            font-size: 0.9rem;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .cart-item-quantity {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #eaeaea;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 35px;
+            border: none;
+            border-left: 1px solid #eaeaea;
+            border-right: 1px solid #eaeaea;
+            text-align: center;
+            font-size: 0.95rem;
+            -moz-appearance: textfield;
+        }
+
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+        }
+
+        .cart-item-total {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .cart-item-actions {
+            flex: 0.5;
+            text-align: right;
+        }
+
+        .cart-item-actions button {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 0.5rem;
+        }
+
+        .cart-item-actions button:hover {
+            color: #dc3545;
+        }
+
+        .cart-item-actions .favorite-btn:hover {
+            color: #ffc107;
+        }
+
+        /* Боковая панель с итогами */
+        .cart-summary {
+            background: white;
+            border: 1px solid #eaeaea;
+            padding: 1.5rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .cart-summary h4 {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+            font-weight: 400;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .summary-row.total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eaeaea;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .summary-discount {
+            color: #28a745;
+        }
+
+        .promo-code {
+            margin: 1.5rem 0;
+        }
+
+        .promo-code .input-group {
+            border: 1px solid #eaeaea;
+        }
+
+        .promo-code input {
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .promo-code input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .promo-code button {
+            border: none;
+            background: #f5f5f5;
+            color: #333;
+            padding: 0 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .promo-code button:hover {
+            background: #333;
+            color: white;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #333;
+            border: none;
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: #000;
+        }
+
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .continue-shopping:hover {
+            color: #333;
+        }
+
+        .continue-shopping i {
+            margin-right: 0.5rem;
+        }
+
+        /* Пустая корзина */
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border: 1px solid #eaeaea;
+        }
+
+        .empty-cart i {
+            font-size: 5rem;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-cart h3 {
+            font-weight: 400;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .empty-cart p {
+            color: #999;
+            margin-bottom: 2rem;
+        }
+
+        .empty-cart .btn {
+            padding: 0.75rem 2.5rem;
+        }
+
+        /* Рекомендуемые товары */
+        .recommended-section {
+            margin-top: 3rem;
+        }
+
+        .recommended-section h3 {
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommended-card {
+            background: white;
+            border: 1px solid #eaeaea;
+            padding: 1rem;
+            height: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .recommended-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .recommended-image {
+            width: 100%;
+            height: 150px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 1px solid #eaeaea;
+        }
+
+        .recommended-image i {
+            font-size: 3rem;
+            color: #ccc;
+        }
+
+        .recommended-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .recommended-price {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .recommended-card .btn {
+            width: 100%;
+            border-radius: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+
+            .cart-item-image {
+                width: 80px;
+                height: 80px;
+                margin-right: 1rem;
+            }
+
+            .cart-item-info {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .cart-item-quantity {
+                flex: 0 0 100%;
+                margin: 1rem 0 0 0;
+                justify-content: flex-start;
+            }
+
+            .cart-item-total {
+                flex: 0 0 auto;
+                margin-left: auto;
+            }
+
+            .cart-item-actions {
+                flex: 0 0 100%;
+                text-align: left;
+                margin-top: 0.5rem;
+            }
+
+            .cart-summary {
+                margin-top: 2rem;
+                position: static;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cart-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .cart-item-info {
+                min-width: 150px;
+            }
+
+            .cart-item-price {
+                font-size: 0.95rem;
+            }
+
+            .cart-item-total {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Шапка сайта -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">ONLINE-SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">О нас</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/login" class="btn btn-outline-dark me-2">Войти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Корзина -->
+<main class="container my-5">
+    <div class="cart-container">
+        <!-- Заголовок корзины -->
+        <div class="cart-header">
+            <h2>Корзина</h2>
+            <span>3 товара на сумму 54,740 ₽</span>
+        </div>
+
+        <div class="row">
+            <!-- Список товаров -->
+            <div class="col-lg-8">
+                <!-- Товар 1 -->
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-category">Электроника</div>
+                        <div class="cart-item-title">
+                            <a href="#">Смартфон Xiaomi Redmi Note 13 8/256GB</a>
+                        </div>
+                        <div class="cart-item-price">
+                            24,990 ₽
+                            <span class="cart-item-old-price">29,990 ₽</span>
+                        </div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1" max="10" readonly>
+                            <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-total">
+                        24,990 ₽
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="favorite-btn" onclick="addToWishlist(this)" title="В избранное">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button onclick="removeFromCart(this)" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Товар 2 -->
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-category">Аксессуары</div>
+                        <div class="cart-item-title">
+                            <a href="#">Наушники беспроводные Sony WH-1000XM4</a>
+                        </div>
+                        <div class="cart-item-price">
+                            29,990 ₽
+                        </div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1" max="10" readonly>
+                            <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-total">
+                        29,990 ₽
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="favorite-btn" onclick="addToWishlist(this)" title="В избранное">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button onclick="removeFromCart(this)" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Товар 3 -->
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-category">Электроника</div>
+                        <div class="cart-item-title">
+                            <a href="#">Планшет Samsung Galaxy Tab S9</a>
+                        </div>
+                        <div class="cart-item-price">
+                            49,990 ₽
+                            <span class="cart-item-old-price">54,990 ₽</span>
+                        </div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1" max="10" readonly>
+                            <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-total">
+                        49,990 ₽
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="favorite-btn" onclick="addToWishlist(this)" title="В избранное">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button onclick="removeFromCart(this)" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Очистить корзину -->
+                <div class="text-end mt-3">
+                    <button class="btn btn-link text-muted" onclick="clearCart()">
+                        <i class="fas fa-trash-alt me-2"></i>Очистить корзину
+                    </button>
+                </div>
+            </div>
+
+            <!-- Итоговая стоимость -->
+            <div class="col-lg-4">
+                <div class="cart-summary">
+                    <h4>Ваш заказ</h4>
+
+                    <div class="summary-row">
+                        <span>Товары (3 шт.)</span>
+                        <span>104,970 ₽</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Скидка</span>
+                        <span class="summary-discount">-10,000 ₽</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Доставка</span>
+                        <span>0 ₽</span>
+                    </div>
+
+                    <!-- Промокод -->
+                    <div class="promo-code">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Промокод">
+                            <button class="btn" type="button">Применить</button>
+                        </div>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Итого</span>
+                        <span>94,970 ₽</span>
+                    </div>
+
+                    <button class="checkout-btn btn" onclick="checkout()">
+                        Оформить заказ
+                    </button>
+
+                    <a href="#" class="continue-shopping">
+                        <i class="fas fa-arrow-left"></i>Продолжить покупки
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Рекомендуемые товары -->
+        <div class="recommended-section">
+            <h3>Вам также может понравиться</h3>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="recommended-card">
+                        <div class="recommended-image">
+                            <i class="fas fa-smartwatch"></i>
+                        </div>
+                        <div class="recommended-title">Смарт-часы Apple Watch SE</div>
+                        <div class="recommended-price">24,990 ₽</div>
+                        <button class="btn btn-outline-dark" onclick="addToCart()">
+                            В корзину
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="recommended-card">
+                        <div class="recommended-image">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="recommended-title">Ноутбук ASUS ROG Strix G15</div>
+                        <div class="recommended-price">89,990 ₽</div>
+                        <button class="btn btn-outline-dark" onclick="addToCart()">
+                            В корзину
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="recommended-card">
+                        <div class="recommended-image">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="recommended-title">Экшн-камера GoPro Hero 12</div>
+                        <div class="recommended-price">39,990 ₽</div>
+                        <button class="btn btn-outline-dark" onclick="addToCart()">
+                            В корзину
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="recommended-card">
+                        <div class="recommended-image">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="recommended-title">Игровая приставка PlayStation 5</div>
+                        <div class="recommended-price">49,990 ₽</div>
+                        <button class="btn btn-outline-dark" onclick="addToCart()">
+                            В корзину
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пример пустой корзины (закомментирован) -->
+        <!--
+        <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Ваша корзина пуста</h3>
+            <p>Перейдите в каталог, чтобы добавить товары</p>
+            <a href="#" class="btn btn-dark">Перейти в каталог</a>
+        </div>
+        -->
+    </div>
+</main>
+
+<!-- Контактная информация -->
+<div class="bg-secondary bg-opacity-10 w-100 py-5" style="margin-top: 30px;">
+    <div class="container">
+        <div class="text-center">
+            <div class="d-flex justify-content-center gap-4 mb-4 flex-wrap">
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #4CAF50; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-user-graduate fa-2x text-success"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Выполнил</small>
+                        <h6 class="mb-0 fw-bold">Губаев Руслан<br>Рузилевич</h6>
+                        <span class="badge bg-success bg-opacity-10 text-success mt-1">Группа 4241</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #2196F3; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-primary"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Научный руководитель</small>
+                        <h6 class="mb-0 fw-bold">Аксенов Алексей Владимирович</h6>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mt-1">Старший преподаватель</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center mb-4 gap-5">
+                <a href="https://guap.ru" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/s_guap-desc.svg" alt="Логотип ГУАП" style="height: 200px; width: auto;" class="img-fluid hover-effect">
+                </a>
+                <a href="https://new.guap.ru/i04" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/deps/i04.svg" alt="Логотип института" style="height: 100px; width: auto;" class="img-fluid hover-effect">
+                </a>
+            </div>
+
+            <p class="text-muted small mb-0">
+                © 2026 | Все права защищены | Данный сайт используется исключительно в исследовательских целях
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript для корзины -->
+<script>
+    // Изменение количества товаров
+    function incrementQuantity(btn) {
+        const input = btn.parentElement.querySelector('.quantity-input');
+        const max = parseInt(input.getAttribute('max'));
+        let value = parseInt(input.value);
+        if (value < max) {
+            input.value = value + 1;
+            updateItemTotal(btn);
+        }
+    }
+
+    function decrementQuantity(btn) {
+        const input = btn.parentElement.querySelector('.quantity-input');
+        const min = parseInt(input.getAttribute('min'));
+        let value = parseInt(input.value);
+        if (value > min) {
+            input.value = value - 1;
+            updateItemTotal(btn);
+        }
+    }
+
+    // Обновление суммы товара
+    function updateItemTotal(element) {
+        const cartItem = element.closest('.cart-item');
+        const priceText = cartItem.querySelector('.cart-item-price').textContent;
+        const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+        const quantity = parseInt(cartItem.querySelector('.quantity-input').value);
+        const total = price * quantity;
+
+        cartItem.querySelector('.cart-item-total').textContent = total.toLocaleString() + ' ₽';
+        updateCartTotal();
+    }
+
+    // Обновление общей суммы корзины
+    function updateCartTotal() {
+        const totals = document.querySelectorAll('.cart-item-total');
+        let subtotal = 0;
+
+        totals.forEach(total => {
+            const value = parseInt(total.textContent.replace(/[^0-9]/g, ''));
+            subtotal += value;
+        });
+
+        const discount = 10000; // Фиксированная скидка для примера
+        const shipping = 0;
+        const finalTotal = subtotal - discount + shipping;
+
+        document.querySelector('.cart-header span').textContent =
+            `${totals.length} товара на сумму ${finalTotal.toLocaleString()} ₽`;
+
+        document.querySelector('.summary-row:first-child span:last-child').textContent =
+            subtotal.toLocaleString() + ' ₽';
+
+        document.querySelector('.summary-row.total span:last-child').textContent =
+            finalTotal.toLocaleString() + ' ₽';
+    }
+
+    // Удаление товара из корзины
+    function removeFromCart(btn) {
+        if (confirm('Удалить товар из корзины?')) {
+            const cartItem = btn.closest('.cart-item');
+            cartItem.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                cartItem.remove();
+                updateCartTotal();
+
+                // Проверка на пустую корзину
+                if (document.querySelectorAll('.cart-item').length === 0) {
+                    showEmptyCart();
+                }
+            }, 300);
+        }
+    }
+
+    // Добавление в избранное
+    function addToWishlist(btn) {
+        const icon = btn.querySelector('i');
+        if (icon.classList.contains('far')) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            icon.style.color = '#ffc107';
+            setTimeout(() => {
+                icon.style.color = '';
+            }, 300);
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+    }
+
+    // Очистка корзины
+    function clearCart() {
+        if (confirm('Очистить корзину?')) {
+            const cartItems = document.querySelectorAll('.cart-item');
+            cartItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => {
+                        item.remove();
+                        if (index === cartItems.length - 1) {
+                            showEmptyCart();
+                        }
+                    }, 300);
+                }, index * 100);
+            });
+        }
+    }
+
+    // Показать пустую корзину
+    function showEmptyCart() {
+        const cartContainer = document.querySelector('.cart-container');
+        const emptyCartHtml = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Ваша корзина пуста</h3>
+                <p>Перейдите в каталог, чтобы добавить товары</p>
+                <a href="#" class="btn btn-dark">Перейти в каталог</a>
+            </div>
+        `;
+
+        document.querySelector('.row').style.display = 'none';
+        document.querySelector('.recommended-section').style.display = 'none';
+
+        const emptyDiv = document.createElement('div');
+        emptyDiv.innerHTML = emptyCartHtml;
+        cartContainer.appendChild(emptyDiv);
+    }
+
+    // Оформление заказа
+    function checkout() {
+        alert('Функция оформления заказа будет доступна после авторизации');
+        window.location.href = '/login';
+    }
+
+    // Добавление в корзину (для рекомендуемых товаров)
+    function addToCart() {
+        alert('Товар добавлен в корзину');
+    }
+
+    // Анимация удаления
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(20px); }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

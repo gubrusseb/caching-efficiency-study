@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дипломный проект | Интернет-магазин</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключаем собственные стили -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<!-- Шапка сайта -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">ONLINE-SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+
+                </ul>
+                <div class="d-flex">
+                    <a href="/login" class="btn btn-outline-dark me-2">Войти</a>
+                    <a href="/cart" class="btn btn-dark">Корзина <span class="badge bg-secondary">3</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Главный информационный блок -->
+<main class="container my-5">
+    <!-- Дипломная информация -->
+    <div class="diploma-section text-center mb-5">
+        <h1 class="display-5 fw-bold mb-4">Дипломная работа</h1>
+        <p class="lead mb-4" style="color: #ffffff; font-family: 'Roboto', sans-serif; font-weight: 600;">
+            Исследование влияния кеширующего слоя на производительность веб-приложений</p>
+        <div class="d-flex justify-content-center flex-wrap">
+            <span class="tech-badge">Kotlin</span>
+            <span class="tech-badge">Spring Boot</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Redis</span>
+            <span class="tech-badge">Bootstrap 5</span>
+        </div>
+    </div>
+
+    <!-- Основная информация -->
+    <div class="row g-4" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+        <!-- Карточка с описанием -->
+        <div class="col" style="display: flex;">
+            <div class="info-card p-4 w-100 h-100">
+                <h3 class="h4 mb-4">О проекте</h3>
+                <p class="text-muted mb-4">
+                    Данный веб-сайт разработан в рамках дипломной работы для исследования
+                    влияния кеширующего слоя на быстродействие веб-приложений. Проект представляет
+                    собой интернет-магазин с типичной функциональностью, но с возможностью
+                    переключения режимов работы кеша для сравнительного анализа.
+                </p>
+                <h4 class="h6 fw-bold text-primary mb-3">Цель исследования:</h4>
+                <p class="text-muted">
+                    Оценить эффективность внедрения Redis как кеширующего слоя между
+                    приложением и базой данных PostgreSQL, измерить улучшение времени
+                    отклика и снижение нагрузки на БД.
+                </p>
+            </div>
+        </div>
+
+        <!-- Технологический стек -->
+        <div class="col" style="display: flex;">
+            <div class="info-card p-4 w-100 h-100">
+                <h3 class="h4 mb-4">Технологический стек</h3>
+                <ul class="feature-list">
+                    <li><strong>Kotlin</strong> — современный язык программирования для JVM</li>
+                    <li><strong>Spring Boot</strong> — фреймворк для создания микросервисов</li>
+                    <li><strong>PostgreSQL</strong> — основная реляционная база данных</li>
+                    <li><strong>Redis</strong> — кеширующий слой в оперативной памяти</li>
+                    <li><strong>Spring Cache</strong> — абстракция для работы с кешем</li>
+                    <li><strong>Bootstrap 5</strong> — адаптивный дизайн интерфейса</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Метрики производительности -->
+        <div class="col" style="display: flex;">
+            <div class="info-card p-4 w-100 h-100">
+                <h3 class="h4 mb-4">Измеряемые метрики</h3>
+                <div class="row text-center">
+                    <div class="col-6 mb-3">
+                        <div class="p-3 bg-light rounded">
+                            <h5 class="h6">Время отклика API</h5>
+                            <span class="display-6 text-primary">↓45%</span>
+                            <small class="d-block text-muted">с кешем Redis</small>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="p-3 bg-light rounded">
+                            <h5 class="h6">Нагрузка на БД</h5>
+                            <span class="display-6 text-success">↓60%</span>
+                            <small class="d-block text-muted">меньше запросов</small>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="p-3 bg-light rounded">
+                            <h5 class="h6">Пропускная способность</h5>
+                            <span class="display-6 text-warning">↑3x</span>
+                            <small class="d-block text-muted">больше запросов/сек</small>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="p-3 bg-light rounded">
+                            <h5 class="h6">Доступность</h5>
+                            <span class="display-6 text-info">99.9%</span>
+                            <small class="d-block text-muted">при пиковых нагрузках</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Информация о Redis -->
+        <div class="col" style="display: flex;">
+            <div class="info-card p-4 w-100 h-100">
+                <h3 class="h4 mb-4">Почему Redis?</h3>
+                <p class="text-muted mb-3">
+                    Redis выбран как решение для кеширования благодаря:
+                </p>
+                <ul class="feature-list">
+                    <li>Хранение данных в оперативной памяти</li>
+                    <li>Поддержка сложных структур данных</li>
+                    <li>Атомарные операции</li>
+                    <li>Встроенная репликация и персистентность</li>
+                    <li>Низкая задержка (субмиллисекундная)</li>
+                    <li>Простая интеграция со Spring Boot</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Контактная информация -->
+<div class="bg-secondary bg-opacity-10 w-100 py-5" style="margin-top: 30px;">
+    <div class="container">
+        <div class="text-center">
+            <div class="d-flex justify-content-center gap-4 mb-4 flex-wrap">
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #4CAF50; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-user-graduate fa-2x text-success"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Выполнил</small>
+                        <h6 class="mb-0 fw-bold">Губаев Руслан<br>Рузилевич</h6>
+                        <span class="badge bg-success bg-opacity-10 text-success mt-1">Группа 4241</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #2196F3; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-primary"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Научный руководитель</small>
+                        <h6 class="mb-0 fw-bold">Аксенов Алексей Владимирович</h6>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mt-1">Старший преподаватель</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center mb-4 gap-5">
+                <a href="https://guap.ru" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/s_guap-desc.svg" alt="Логотип ГУАП" style="height: 200px; width: auto;" class="img-fluid hover-effect">
+                </a>
+                <a href="https://new.guap.ru/i04" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/deps/i04.svg" alt="Логотип института" style="height: 100px; width: auto;" class="img-fluid hover-effect">
+                </a>
+            </div>
+
+            <p class="text-muted small mb-0">
+                © 2026 | Все права защищены | Данный сайт используется исключительно в исследовательских целях
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

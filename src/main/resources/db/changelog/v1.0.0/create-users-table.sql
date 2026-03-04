@@ -1,0 +1,12 @@
+CREATE TABLE users (
+   id BIGSERIAL PRIMARY KEY,
+   email VARCHAR(255) UNIQUE NOT NULL,
+   password_hash VARCHAR(255) NOT NULL,
+   full_name VARCHAR(200),
+   phone VARCHAR(20),
+   role VARCHAR(50) DEFAULT 'USER',
+   is_active BOOLEAN DEFAULT true,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   last_login TIMESTAMP
+);

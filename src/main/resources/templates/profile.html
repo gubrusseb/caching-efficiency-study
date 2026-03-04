@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя | Интернет-магазин</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Подключаем собственные стили -->
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Дополнительные стили для профиля */
+        .profile-sidebar {
+            background: white;
+            border: 1px solid #eaeaea;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 300;
+            margin: 0 auto 1rem;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-menu {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0 0;
+        }
+
+        .profile-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 0;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .profile-menu a i {
+            width: 24px;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .profile-menu a:hover,
+        .profile-menu a.active {
+            background-color: #f8f9fa;
+            color: #333;
+            border-left-color: #333;
+        }
+
+        .profile-content {
+            background: white;
+            border: 1px solid #eaeaea;
+            padding: 2rem;
+            min-height: 500px;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .profile-header h3 {
+            margin: 0;
+            font-weight: 400;
+            color: #333;
+        }
+
+        .profile-header .btn {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-label {
+            width: 200px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+
+        .info-value strong {
+            font-weight: 500;
+        }
+
+        .order-card {
+            border: 1px solid #eaeaea;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .order-number {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .order-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 0;
+        }
+
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-shipped {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #eaeaea;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eaeaea;
+            font-weight: 500;
+        }
+
+        .address-card {
+            border: 1px solid #eaeaea;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .address-card.default {
+            background-color: #f8f9fa;
+        }
+
+        .address-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            background-color: #333;
+            color: white;
+        }
+
+        .address-name {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            padding-right: 80px;
+        }
+
+        .address-details {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .address-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-avatar i {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        .address-actions button {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 0.9rem;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .address-actions button:hover {
+            color: #333;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eaeaea;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .wishlist-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .wishlist-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border: 1px solid #eaeaea;
+        }
+
+        .wishlist-image i {
+            font-size: 2rem;
+            color: #ccc;
+        }
+
+        .wishlist-info {
+            flex: 1;
+        }
+
+        .wishlist-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .wishlist-price {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .wishlist-actions button {
+            background: none;
+            border: none;
+            color: #999;
+            transition: color 0.2s ease;
+        }
+
+        .wishlist-actions button:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-label {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Шапка сайта -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">ONLINE-SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">О нас</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="#" class="btn btn-outline-dark me-2">Войти</a>
+                    <a href="#" class="btn btn-dark">Корзина <span class="badge bg-secondary">3</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Профиль пользователя -->
+<main class="container my-5">
+    <div class="row">
+        <!-- Боковое меню профиля -->
+        <div class="col-lg-3 mb-4">
+            <div class="profile-sidebar">
+                <div class="text-center">
+                    <div class="profile-avatar mx-auto">
+                        <i class="fas fa-user-circle fa-4x"></i>
+                    </div>
+                    <h5 class="mt-3 mb-1">Руслан Губаев</h5>
+                    <p class="text-muted small">r.gubaev@example.com</p>
+                </div>
+
+                <ul class="profile-menu">
+                    <li>
+                        <a href="#profile" class="active" onclick="showTab(event, 'profile')">
+                            <i class="fas fa-user"></i> Личные данные
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#orders" onclick="showTab(event, 'orders')">
+                            <i class="fas fa-shopping-bag"></i> Мои заказы
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#addresses" onclick="showTab(event, 'addresses')">
+                            <i class="fas fa-map-marker-alt"></i> Адреса доставки
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#wishlist" onclick="showTab(event, 'wishlist')">
+                            <i class="fas fa-heart"></i> Избранное
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings" onclick="showTab(event, 'settings')">
+                            <i class="fas fa-cog"></i> Настройки
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#logout">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Контент профиля -->
+        <div class="col-lg-9">
+            <!-- Личные данные -->
+            <div id="profile" class="profile-content tab-content active">
+                <div class="profile-header">
+                    <h3>Личные данные</h3>
+                    <button class="btn btn-outline-dark" onclick="enableEdit()">
+                        <i class="fas fa-edit me-2"></i>Редактировать
+                    </button>
+                </div>
+
+                <div id="profileView">
+                    <div class="info-row">
+                        <div class="info-label">Полное имя:</div>
+                        <div class="info-value"><strong>Губаев Руслан Рузилевич</strong></div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Email:</div>
+                        <div class="info-value">r.gubaev@example.com</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Телефон:</div>
+                        <div class="info-value">+7 (999) 123-45-67</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Дата регистрации:</div>
+                        <div class="info-value">15.03.2026</div>
+                    </div>
+                </div>
+
+                <div id="profileEdit" style="display: none;">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Полное имя</label>
+                            <input type="text" class="form-control" value="Губаев Руслан Рузилевич">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="r.gubaev@example.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" value="+7 (999) 123-45-67">
+                        </div>
+
+                        <button type="submit" class="btn btn-dark me-2">Сохранить</button>
+                        <button type="button" class="btn btn-outline-dark" onclick="disableEdit()">Отмена</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Мои заказы -->
+            <div id="orders" class="profile-content tab-content">
+                <div class="profile-header">
+                    <h3>Мои заказы</h3>
+                    <span class="text-muted">Всего заказов: 5</span>
+                </div>
+
+                <!-- Заказ 1 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-number">Заказ № 2026-001</span>
+                            <span class="order-date ms-3">от 15.03.2026</span>
+                        </div>
+                        <span class="order-status status-delivered">Доставлен</span>
+                    </div>
+
+                    <div class="order-items">
+                        <div class="order-item">
+                            <span>Смартфон Xiaomi Redmi Note 13</span>
+                            <span>1 × 24,990 ₽</span>
+                        </div>
+                        <div class="order-item">
+                            <span>Защитное стекло</span>
+                            <span>1 × 990 ₽</span>
+                        </div>
+                        <div class="order-item">
+                            <span>Чехол силиконовый</span>
+                            <span>1 × 1,290 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="order-total">
+                        <span>Итого:</span>
+                        <span>27,270 ₽</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-outline-dark me-2">
+                            <i class="fas fa-repeat"></i> Повторить заказ
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-file-alt"></i> Детали
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Заказ 2 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-number">Заказ № 2026-002</span>
+                            <span class="order-date ms-3">от 10.03.2026</span>
+                        </div>
+                        <span class="order-status status-shipped">Отправлен</span>
+                    </div>
+
+                    <div class="order-items">
+                        <div class="order-item">
+                            <span>Наушники беспроводные</span>
+                            <span>1 × 5,990 ₽</span>
+                        </div>
+                        <div class="order-item">
+                            <span>Внешний аккумулятор 20000mAh</span>
+                            <span>1 × 3,490 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="order-total">
+                        <span>Итого:</span>
+                        <span>9,480 ₽</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-outline-dark me-2">
+                            <i class="fas fa-repeat"></i> Повторить заказ
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-file-alt"></i> Детали
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Заказ 3 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-number">Заказ № 2026-003</span>
+                            <span class="order-date ms-3">от 05.03.2026</span>
+                        </div>
+                        <span class="order-status status-processing">Обрабатывается</span>
+                    </div>
+
+                    <div class="order-items">
+                        <div class="order-item">
+                            <span>Футболка мужская хлопок</span>
+                            <span>2 × 1,990 ₽</span>
+                        </div>
+                        <div class="order-item">
+                            <span>Джинсы прямые</span>
+                            <span>1 × 4,990 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="order-total">
+                        <span>Итого:</span>
+                        <span>8,970 ₽</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-outline-dark me-2">
+                            <i class="fas fa-repeat"></i> Повторить заказ
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-file-alt"></i> Детали
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Адреса доставки -->
+            <div id="addresses" class="profile-content tab-content">
+                <div class="profile-header">
+                    <h3>Адреса доставки</h3>
+                    <button class="btn btn-dark" onclick="addAddress()">
+                        <i class="fas fa-plus me-2"></i>Добавить адрес
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="address-card default">
+                            <span class="address-badge">Основной</span>
+                            <div class="address-name">Руслан Губаев</div>
+                            <div class="address-details">
+                                г. Санкт-Петербург, ул. Ленина, д. 1, кв. 123<br>
+                                +7 (999) 123-45-67
+                            </div>
+                            <div class="address-actions">
+                                <button><i class="fas fa-edit me-1"></i>Изменить</button>
+                                <button><i class="fas fa-trash me-1"></i>Удалить</button>
+                                <button><i class="fas fa-star me-1"></i>Сделать основным</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="address-card">
+                            <div class="address-name">Руслан Губаев (рабочий)</div>
+                            <div class="address-details">
+                                г. Санкт-Петербург, пр. Просвещения, д. 50, офис 401<br>
+                                +7 (999) 765-43-21
+                            </div>
+                            <div class="address-actions">
+                                <button><i class="fas fa-edit me-1"></i>Изменить</button>
+                                <button><i class="fas fa-trash me-1"></i>Удалить</button>
+                                <button><i class="fas fa-star me-1"></i>Сделать основным</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Избранное -->
+            <div id="wishlist" class="profile-content tab-content">
+                <div class="profile-header">
+                    <h3>Избранное</h3>
+                    <span class="text-muted">3 товара</span>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="wishlist-info">
+                        <div class="wishlist-title">Смартфон Xiaomi Redmi Note 13 8/256GB</div>
+                        <div class="wishlist-price">24,990 ₽</div>
+                    </div>
+                    <div class="wishlist-actions">
+                        <button onclick="addToCart()" title="Добавить в корзину">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <button onclick="removeFromWishlist()" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <div class="wishlist-info">
+                        <div class="wishlist-title">Наушники Sony WH-1000XM4</div>
+                        <div class="wishlist-price">29,990 ₽</div>
+                    </div>
+                    <div class="wishlist-actions">
+                        <button onclick="addToCart()" title="Добавить в корзину">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <button onclick="removeFromWishlist()" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="wishlist-info">
+                        <div class="wishlist-title">Ноутбук ASUS ROG Strix G15</div>
+                        <div class="wishlist-price">89,990 ₽</div>
+                    </div>
+                    <div class="wishlist-actions">
+                        <button onclick="addToCart()" title="Добавить в корзину">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <button onclick="removeFromWishlist()" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Настройки -->
+            <div id="settings" class="profile-content tab-content">
+                <div class="profile-header">
+                    <h3>Настройки</h3>
+                </div>
+
+                <form>
+                    <h5 class="mb-3">Смена пароля</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">Текущий пароль</label>
+                        <input type="password" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Новый пароль</label>
+                        <input type="password" class="form-control">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Подтверждение нового пароля</label>
+                        <input type="password" class="form-control">
+                    </div>
+
+                    <h5 class="mb-3 mt-4">Уведомления</h5>
+
+                    <div class="mb-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="emailOrder" checked>
+                            <label class="form-check-label" for="emailOrder">
+                                Получать уведомления о статусе заказа на email
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="emailPromo" checked>
+                            <label class="form-check-label" for="emailPromo">
+                                Получать информацию об акциях и скидках
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="smsNotify">
+                            <label class="form-check-label" for="smsNotify">
+                                Получать SMS-уведомления о статусе заказа
+                            </label>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 mt-4">Приватность</h5>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showProfile">
+                            <label class="form-check-label" for="showProfile">
+                                Показывать мои данные другим пользователям
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">Сохранить настройки</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Контактная информация -->
+<div class="bg-secondary bg-opacity-10 w-100 py-5" style="margin-top: 30px;">
+    <div class="container">
+        <div class="text-center">
+            <div class="d-flex justify-content-center gap-4 mb-4 flex-wrap">
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #4CAF50; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-user-graduate fa-2x text-success"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Выполнил</small>
+                        <h6 class="mb-0 fw-bold">Губаев Руслан<br>Рузилевич</h6>
+                        <span class="badge bg-success bg-opacity-10 text-success mt-1">Группа 4241</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-3 shadow-sm" style="border-left: 4px solid #2196F3; width: 350px; min-height: 120px;">
+                    <div class="me-3">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-primary"></i>
+                    </div>
+                    <div class="text-start">
+                        <small class="text-muted text-uppercase">Научный руководитель</small>
+                        <h6 class="mb-0 fw-bold">Аксенов Алексей Владимирович</h6>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mt-1">Старший преподаватель</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center mb-4 gap-5">
+                <a href="https://guap.ru" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/s_guap-desc.svg" alt="Логотип ГУАП" style="height: 200px; width: auto;" class="img-fluid hover-effect">
+                </a>
+                <a href="https://new.guap.ru/i04" target="_blank" rel="noopener noreferrer">
+                    <img src="https://src.guap.ru/logos/guap/deps/i04.svg" alt="Логотип института" style="height: 100px; width: auto;" class="img-fluid hover-effect">
+                </a>
+            </div>
+
+            <p class="text-muted small mb-0">
+                © 2026 | Все права защищены | Данный сайт используется исключительно в исследовательских целях
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript для вкладок -->
+<script>
+    function showTab(event, tabId) {
+        event.preventDefault();
+
+        // Скрыть все вкладки
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Показать выбранную вкладку
+        document.getElementById(tabId).classList.add('active');
+
+        // Обновить активный пункт меню
+        document.querySelectorAll('.profile-menu a').forEach(link => {
+            link.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+    }
+
+    function enableEdit() {
+        document.getElementById('profileView').style.display = 'none';
+        document.getElementById('profileEdit').style.display = 'block';
+    }
+
+    function disableEdit() {
+        document.getElementById('profileView').style.display = 'block';
+        document.getElementById('profileEdit').style.display = 'none';
+    }
+
+    function addAddress() {
+        alert('Форма добавления нового адреса');
+    }
+
+    function addToCart() {
+        alert('Товар добавлен в корзину');
+    }
+
+    function removeFromWishlist() {
+        if(confirm('Удалить товар из избранного?')) {
+            alert('Товар удален');
+        }
+    }
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
