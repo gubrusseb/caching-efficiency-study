@@ -1,7 +1,7 @@
 package ru.russeb.graduationwork.dto
 
 
-data class LoginRequest(
+data class LoginRequestDto(
 
     val email: String = "",
     val password: String = "",

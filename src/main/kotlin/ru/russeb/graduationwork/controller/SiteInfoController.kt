@@ -7,19 +7,9 @@ import ru.russeb.graduationwork.service.UserService
 
 
 @Controller
-class SiteInfoController(private val userService: UserService) {
+class SiteInfoController() {
     @GetMapping("/about_us")
-    fun about_us(): String {
+    fun aboutUs(): String {
         return "about_us"
-    }
-
-    @GetMapping("/profile")
-    fun profile(): String {
-        return "profile"
-    }
-
-    @GetMapping("/cart")
-    fun cart(): String {
-        return "cart"
     }
 }

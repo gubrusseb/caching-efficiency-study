@@ -1,8 +1,6 @@
 package ru.russeb.graduationwork.controller
 
 import jakarta.validation.Valid
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -10,12 +8,8 @@ import org.springframework.validation.FieldError
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.servlet.mvc.support.RedirectAttributes
-import ru.russeb.graduationwork.dto.LoginRequest
-import ru.russeb.graduationwork.dto.UserCreateRequest
-import ru.russeb.graduationwork.dto.UserResponse
+import ru.russeb.graduationwork.dto.UserCreateRequestDto
 import ru.russeb.graduationwork.service.UserService
 
 
@@ -35,7 +29,7 @@ class AuthController(
 
     @PostMapping("/register")
     fun register(
-        @Valid @ModelAttribute("user") request: UserCreateRequest,
+        @Valid @ModelAttribute("user") request: UserCreateRequestDto,
         bindingResult: BindingResult,
         model: Model
     ): String {
@@ -78,7 +72,7 @@ class AuthController(
         try {
             userService.createUser(request)
             model.addAttribute("registrationSuccess", true)
-            model.addAttribute("user", UserCreateRequest())
+            model.addAttribute("user", UserCreateRequestDto())
             return "register"
         } catch (e: Exception) {
             return "register"
@@ -87,7 +81,7 @@ class AuthController(
 
     @GetMapping("/register")
     fun sendRegisterForm(model: Model): String {
-        model.addAttribute("user", UserCreateRequest())
+        model.addAttribute("user", UserCreateRequestDto())
         return "register"
     }
 }

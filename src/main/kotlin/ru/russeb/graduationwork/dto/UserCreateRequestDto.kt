@@ -2,7 +2,7 @@ package ru.russeb.graduationwork.dto
 
 import jakarta.validation.constraints.*
 
-data class UserCreateRequest(
+data class UserCreateRequestDto(
     @field:NotBlank(message = "Обязательное поле")
     @field:Email(message = "Неверный формат почты")
     val email: String,

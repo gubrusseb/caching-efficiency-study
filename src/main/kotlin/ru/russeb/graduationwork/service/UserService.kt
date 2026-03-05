@@ -3,8 +3,7 @@ package ru.russeb.graduationwork.service
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.russeb.graduationwork.dto.UserCreateRequest
-import ru.russeb.graduationwork.dto.UserResponse
+import ru.russeb.graduationwork.dto.UserCreateRequestDto
 import ru.russeb.graduationwork.entity.User
 import ru.russeb.graduationwork.repository.UserRepository
 import java.util.Optional
@@ -15,7 +14,7 @@ class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun createUser(request: UserCreateRequest): User {
+    fun createUser(request: UserCreateRequestDto): User {
         require(!userRepository.existsByEmail(request.email)) {
             "User with email ${request.email} already exists"
         }
@@ -37,5 +36,13 @@ class UserService(
 
     fun findByEmail(email: String): Optional<User> {
         return userRepository.findByEmail(email)
+    }
+
+    fun save(user: User): User {
+        return userRepository.save(user)
+    }
+
+    fun delete(user: User) {
+        userRepository.delete(user)
     }
 }

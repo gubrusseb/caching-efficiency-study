@@ -4,7 +4,7 @@ import ru.russeb.graduationwork.entity.User
 import ru.russeb.graduationwork.entity.UserRole
 import java.time.LocalDateTime
 
-data class UserResponse(
+data class UserResponseDto(
     val id: Long,
     val email: String,
     val fullName: String?,
@@ -15,7 +15,7 @@ data class UserResponse(
     val lastLogin: LocalDateTime?
 ) {
     companion object {
-        fun from(user: User): UserResponse = UserResponse(
+        fun from(user: User): UserResponseDto = UserResponseDto(
             id = user.id!!,
             email = user.email,
             fullName = user.fullName,

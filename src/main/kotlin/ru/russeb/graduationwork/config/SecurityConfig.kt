@@ -22,9 +22,9 @@ class SecurityConfig(
             .authorizeHttpRequests { authz ->
                 authz
                     .requestMatchers("/", "/home", "/public/**", "/css/**", "/js/**","/images/**").permitAll()
-                    .requestMatchers("/register", "/register/**","/about_us", "/profile","/cart","/test/**").permitAll()
+                    .requestMatchers("/register", "/register/**","/about_us","/cart","/test/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers("/user/**", "/profile","/profile/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated()
             }
             .formLogin { formLogin ->
