@@ -2,43 +2,56 @@ package ru.russeb.graduationwork.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
+import ru.russeb.graduationwork.service.SecurityUserDetailsService
 
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(
+    private val userDetailsService: SecurityUserDetailsService,
+) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .authorizeHttpRequests { authz ->
                 authz
                     .requestMatchers("/", "/home", "/public/**", "/css/**", "/js/**","/images/**").permitAll()
-                    .requestMatchers("/register", "/register/**","/about_us", "/profile","/cart").permitAll()
+                    .requestMatchers("/register", "/register/**","/about_us", "/profile","/cart","/test/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated()
             }
-            .formLogin { form ->
-                form
+            .formLogin { formLogin ->
+                formLogin
                     .loginPage("/login")
-                    .permitAll()
-                    .defaultSuccessUrl("/dashboard", true)
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/", true)
                     .failureUrl("/login?error=true")
+                    .permitAll()
             }
             .logout { logout ->
                 logout
-                    .logoutSuccessUrl("/")
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
                     .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
+                    .deleteCookies("JSESSIONID", "remember-me")
+                    .clearAuthentication(true)
                     .permitAll()
+            }
+            .rememberMe { rememberMe ->
+                rememberMe
+                    .key("uniqueAndSecret")
+                    .tokenValiditySeconds(86400)
+                    .userDetailsService(userDetailsService)
+                    .rememberMeParameter("remember-me")
             }
             .sessionManagement { session ->
                 session
@@ -46,6 +59,7 @@ class SecurityConfig {
                     .maximumSessions(1)
                     .expiredUrl("/login?expired=true")
             }
+            .authenticationProvider(authenticationProvider())
 
         return http.build()
     }
@@ -54,19 +68,9 @@ class SecurityConfig {
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
     @Bean
-    fun userDetailsService(): UserDetailsService {
-        val user = User.builder()
-            .username("user")
-            .password(passwordEncoder().encode("password"))
-            .roles("USER")
-            .build()
-
-        val admin = User.builder()
-            .username("admin")
-            .password(passwordEncoder().encode("admin"))
-            .roles("ADMIN", "USER")
-            .build()
-
-        return InMemoryUserDetailsManager(user, admin)
+    fun authenticationProvider(): DaoAuthenticationProvider {
+        val authProvider = DaoAuthenticationProvider(userDetailsService)
+        authProvider.setPasswordEncoder(passwordEncoder())
+        return authProvider
     }
 }

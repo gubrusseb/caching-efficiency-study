@@ -7,6 +7,7 @@ import ru.russeb.graduationwork.dto.UserCreateRequest
 import ru.russeb.graduationwork.dto.UserResponse
 import ru.russeb.graduationwork.entity.User
 import ru.russeb.graduationwork.repository.UserRepository
+import java.util.Optional
 
 @Service
 @Transactional
@@ -14,7 +15,7 @@ class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun createUser(request: UserCreateRequest): UserResponse {
+    fun createUser(request: UserCreateRequest): User {
         require(!userRepository.existsByEmail(request.email)) {
             "User with email ${request.email} already exists"
         }
@@ -27,10 +28,14 @@ class UserService(
         )
 
         val savedUser = userRepository.save(user)
-        return UserResponse.from(savedUser)
+        return savedUser
     }
 
     fun existsByEmail(email: String): Boolean {
         return userRepository.existsByEmail(email)
+    }
+
+    fun findByEmail(email: String): Optional<User> {
+        return userRepository.findByEmail(email)
     }
 }

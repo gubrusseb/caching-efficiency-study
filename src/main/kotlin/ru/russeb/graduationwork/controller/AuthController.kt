@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import ru.russeb.graduationwork.dto.LoginRequest
 import ru.russeb.graduationwork.dto.UserCreateRequest
 import ru.russeb.graduationwork.dto.UserResponse
 import ru.russeb.graduationwork.service.UserService
@@ -23,7 +25,11 @@ class AuthController(
 ) {
 
     @GetMapping("/login")
-    fun sendLoginForm(): String {
+    fun sendLoginForm(@RequestParam(required = false) error: String?, model: Model): String {
+        if (error == "true") {
+            model.addAttribute("loginError", true)
+        }
+
         return "login"
     }
 

@@ -2,10 +2,12 @@ package ru.russeb.graduationwork.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
+import ru.russeb.graduationwork.service.UserService
 
 
 @Controller
-class SiteInfoController {
+class SiteInfoController(private val userService: UserService) {
     @GetMapping("/about_us")
     fun about_us(): String {
         return "about_us"

@@ -3,8 +3,10 @@ package ru.russeb.graduationwork.entity
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
-
 
 @Entity
 @Table(name = "users")
@@ -42,9 +44,26 @@ data class User(
 
     @Column(name = "last_login")
     var lastLogin: LocalDateTime? = null
-)
+) : UserDetails {
 
-enum class UserRole{
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority("ROLE_${role.name}"))
+    }
+
+    override fun getPassword(): String = passwordHash
+
+    override fun getUsername(): String = email
+
+    override fun isAccountNonExpired(): Boolean = true
+
+    override fun isAccountNonLocked(): Boolean = true
+
+    override fun isCredentialsNonExpired(): Boolean = true
+
+    override fun isEnabled(): Boolean = isActive
+}
+
+enum class UserRole {
     ADMIN, USER;
 
     companion object {
