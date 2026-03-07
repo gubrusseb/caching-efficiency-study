@@ -5,3 +5,18 @@ databaseChangeLog:
   - include:
       file: db/changelog/v1.0.0/create-addresses-table.sql
       relativeToChangelogFile: false
+  - include:
+      file: db/changelog/v1.0.0/create-categories-table.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/v1.0.0/create-products-tables.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/v1.0.0/insert-categories.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/v1.0.0/disable-repeat-categories.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/v1.0.0/add-images-to-categories.sql
+      relativeToChangelogFile: false

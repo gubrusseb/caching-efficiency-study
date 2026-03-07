@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,44 @@
     <!-- Подключаем собственные стили -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Стили для выпадающего меню */
+        .dropdown-menu {
+            animation: fadeIn 0.2s ease;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            min-width: 220px;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            color: #333;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #667eea;
+            padding-left: 1.5rem;
+        }
+
+        .dropdown-item.text-danger:hover {
+            background-color: #fff5f5;
+            color: #dc3545 !important;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .dropdown-divider {
+            margin: 0.3rem 0;
+        }
+    </style>
 </head>
 <body>
 <!-- Шапка сайта -->
@@ -23,11 +61,54 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-
                 </ul>
-                <div class="d-flex">
-                    <a href="/login" class="btn btn-outline-dark me-2">Войти</a>
-                    <a href="/cart" class="btn btn-dark">Корзина <span class="badge bg-secondary">3</span></a>
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Если пользователь не авторизован -->
+                    <div sec:authorize="!isAuthenticated()">
+                        <a href="/login" class="btn btn-outline-dark me-2">
+                            <i class="fas fa-sign-in-alt me-1"></i>Войти
+                        </a>
+                        <a href="/register" class="btn btn-dark">
+                            <i class="fas fa-user-plus me-1"></i>Регистрация
+                        </a>
+                    </div>
+
+                    <!-- Если пользователь авторизован -->
+                    <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
+
+                        <a href="#" class="btn btn-dark">Корзина <span class="badge bg-secondary">3</span></a>
+
+                        <div class="dropdown">
+                            <button class="btn btn-link p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="profile-avatar mx-auto">
+                                    <i class="fas fa-user-circle fa-3x" style="color: black;"></i>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                                <li>
+                                    <div class="dropdown-item-text text-muted small">
+                                        <i class="fas fa-envelope me-2"></i>
+                                        <span sec:authentication="name">email@example.com</span>
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="fas fa-id-card me-2"></i>Профиль
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form th:action="@{/logout}" method="post" class="d-inline">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Выйти
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

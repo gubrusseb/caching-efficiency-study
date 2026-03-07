@@ -22,7 +22,7 @@ class SecurityConfig(
             .authorizeHttpRequests { authz ->
                 authz
                     .requestMatchers("/", "/home", "/public/**", "/css/**", "/js/**","/images/**").permitAll()
-                    .requestMatchers("/register", "/register/**","/about_us","/cart","/test/**").permitAll()
+                    .requestMatchers("/register", "/register/**","/about-us","/cart","/test/**","/catalog/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/user/**", "/profile","/profile/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated()
