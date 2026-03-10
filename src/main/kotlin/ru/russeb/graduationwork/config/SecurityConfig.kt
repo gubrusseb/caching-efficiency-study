@@ -22,7 +22,7 @@ class SecurityConfig(
             .authorizeHttpRequests { authz ->
                 authz
                     .requestMatchers("/", "/home", "/public/**", "/css/**", "/js/**","/images/**").permitAll()
-                    .requestMatchers("/register", "/register/**","/about-us","/cart","/test/**","/catalog/**").permitAll()
+                    .requestMatchers("/register", "/register/**","/about-us","/cart","/test/**","/catalog/**","/product/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/user/**", "/profile","/profile/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated()
@@ -33,7 +33,15 @@ class SecurityConfig(
                     .loginProcessingUrl("/login")
                     .usernameParameter("email")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/", true)
+                    .successHandler { request, response, authentication ->
+                        // Получаем redirect из параметра запроса
+                        val redirectUrl = request.getParameter("redirect")
+                        if (redirectUrl != null && redirectUrl.isNotBlank()) {
+                            response.sendRedirect(redirectUrl)
+                        } else {
+                            response.sendRedirect("/")
+                        }
+                    }
                     .failureUrl("/login?error=true")
                     .permitAll()
             }

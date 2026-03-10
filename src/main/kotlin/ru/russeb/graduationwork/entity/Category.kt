@@ -24,7 +24,7 @@ import jakarta.persistence.*
 class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    val id: Long? = null
 
     @Column(name = "name", nullable = false, length = 100)
     var name: String? = null
@@ -48,11 +48,11 @@ class Category {
 
     @Column(name = "sort_order")
     @Builder.Default
-    val sortOrder = 0
+    var sortOrder = 0
 
     @Column(name = "is_active")
     @Builder.Default
-    val isActive = true
+    var isActive = true
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

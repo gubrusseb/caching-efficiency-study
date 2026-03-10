@@ -25,4 +25,16 @@ class CategoryService(private val categoryRepository: CategoryRepository) {
     fun getSubCategories(category: Category): List<Category> {
         return categoryRepository.findCategoriesByParent(category)
     }
+
+    fun getFullPathCategoryById(categoryId: Long): List<Category> {
+        val path = mutableListOf<Category>()
+        var current = categoryRepository.findById(categoryId).orElse(null)
+
+        while (current != null) {
+            path.add(0, current)
+            current = current.parent
+        }
+
+        return path
+    }
 }

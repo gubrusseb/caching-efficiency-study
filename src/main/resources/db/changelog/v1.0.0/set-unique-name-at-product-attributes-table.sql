@@ -1,0 +1,1 @@
+ALTER TABLE product_attributes ADD CONSTRAINT product_attributes_name_unique UNIQUE (name);
